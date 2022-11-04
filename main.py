@@ -5,8 +5,19 @@ import numpy as np
 # from transformers import BertTokenizer, BertForSequenceClassification
 from transformers import DistilBertTokenizer, DistilBertForMaskedLM
 import torch
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_model():
     tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
